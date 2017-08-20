@@ -1,0 +1,28 @@
+<div class="container">
+  <div>Hello from Index!</div>
+
+  <div class="row">
+    <form {{action "createGroup" newGroup on="submit"}}>
+      <div class="form-group">
+        <label for="name">Nazwa</label>
+        {{input type="text" id="groupName" class="form-control" placeholder="Nazwa" value=newGroup.name}}
+      </div>
+      <div class="form-group">
+        <label for="description">Opis</label>
+        {{textarea class="form-control" id="groupDescription" rows="3" value=newGroup.description}}
+      </div>
+      <button type="submit" class="btn btn-success pull-right">Utwórz grupę</button>
+    </form>
+  </div>
+
+  {{#each groups as |group|}}
+    <div class="col-md-4 m-b-lg">
+        <div class="panel panel-default panel-profile m-b-0">
+          <div class="panel-heading" style="background-image: url(//cdn.shopify.com/s/files/1/0691/5403/t/139/assets/insta-2.jpg?12817922976150776315);"></div>
+          <div class="panel-body text-center">
+            {{group-view group=group}}
+          </div>
+        </div>
+      </div>
+  {{/each}}
+</div>

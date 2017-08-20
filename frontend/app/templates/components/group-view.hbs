@@ -1,0 +1,13 @@
+{{yield}}
+
+{{#if isEdited}}
+  {{input type="text" class="form-control" value=group.name}}<br>
+  {{textarea class="form-control" rows="3" value=group.description}}<br>
+  <button {{action "saveEditedGroup" group}}>Zapisz</button>
+{{else}}
+  {{group.name}}<br>
+  {{group.description}}<br>
+  {{#link-to "group" group tagName="div" class="btn btn-success"}}Odwiedź{{/link-to}}
+  <button {{action "deleteGroup" group}} class="btn btn-danger">Usuń</button>
+  <button {{action "editGroup"}} class="btn btn-warning">Edytuj</button>
+{{/if}}
