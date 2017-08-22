@@ -1,0 +1,21 @@
+{{yield}}
+
+<div class="row">
+  <div class="form-group col-md-offset-1">
+    <label for="text">Treść pytania</label>
+    <div class="form-group col-md-10">
+      {{input type="text" class="form-control" placeholder="Treść pytania" value=question.text}}
+
+      {{#each question.question_options as |option|}}
+        <div class="form-check col-md-offset-2">
+          {{input type="checkbox" class="form-check-input" checked=option.is_correct}}
+          {{input type="text" class="form-control" placeholder="Odpowiedź" value=option.answer_text}}
+          <button {{action "deleteOption" option}} class="btn btn-danger">-</button>
+        </div>
+      {{/each}}
+      <button {{action "addOption"}} class="btn btn-success">Dodaj odpowiedź</button>
+
+      <button {{action "deleteQuestion" question}} class="btn btn-danger">Usuń pytanie</button>
+    </div>
+  </div>
+</div>

@@ -103,6 +103,8 @@ export default Ember.Service.extend({
       name: '',
       description: '',
       duration_in_secs: '',
+      start_date: '2017-08-20T13:45:00',
+      end_date: '2017-08-21T13:45:00',
       questions: [Question.create({
         text: '',
         question_options: [
@@ -111,4 +113,15 @@ export default Ember.Service.extend({
       })]
     })
   },
+
+  getEmptyQuestion() {
+    return Question.create({
+      text: '',
+      question_options: [ QuestionOption.create({ answer_text: '', is_correct: false }) ]
+    })
+  },
+
+  getEmptyOption() {
+    return QuestionOption.create({ answer_text: '', is_correct: false })
+  }
 });
