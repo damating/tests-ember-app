@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem "ember-cli-rails"
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem 'pry-rails'

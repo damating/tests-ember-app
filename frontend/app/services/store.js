@@ -20,11 +20,11 @@ const tests = [
     id: '1',
     name: 'Test1',
     group_id: '1',
-    questions: [
+    questions_attributes: [
       Question.create({
         id: '1',
         text: 'Pytanie1',
-        question_options: [
+        question_options_attributes: [
           QuestionOption.create({ id: '1', answer_text: 'Odp1', is_correct: true }),
           QuestionOption.create({ id: '2', answer_text: 'Odp2', is_correct: false })
         ]
@@ -32,7 +32,7 @@ const tests = [
       Question.create({
         id: '2',
         text: 'Pytanie2',
-        question_options: [
+        question_options_attributes: [
           QuestionOption.create({ id: '3', answer_text: 'Odp1', is_correct: false }),
           QuestionOption.create({ id: '4', answer_text: 'Odp2', is_correct: true })
         ]
@@ -43,11 +43,11 @@ const tests = [
     id: '2',
     name: 'Test2',
     group_id: '1',
-    questions: [
+    questions_attributes: [
       Question.create({
         id: '3',
         text: 'Pytanie1',
-        question_options: [
+        question_options_attributes: [
           QuestionOption.create({ id: '5', answer_text: 'Odp1', is_correct: false }),
           QuestionOption.create({ id: '6', answer_text: 'Odp2', is_correct: true })
         ]
@@ -55,7 +55,7 @@ const tests = [
       Question.create({
         id: '4',
         text: 'Pytanie2',
-        question_options: [
+        question_options_attributes: [
           QuestionOption.create({ id: '7', answer_text: 'Odp1', is_correct: true }),
           QuestionOption.create({ id: '8', answer_text: 'Odp2', is_correct: false })
         ]
@@ -69,19 +69,39 @@ export default Ember.Service.extend({
     return groups.findBy('id', id);
   },
 
-  getGroups() { return groups; },
+  getGroups() {
+    return $.ajax({
+      type: 'GET',
+      url: '/groups',
+      dataType: 'json'
+    });
+  },
 
   newGroup() {
     return Group.create({ name: '', description: '' })
   },
 
-  saveGroup(group) {
-    // TODO ajax here!
-    group.set('id', 9999);
-    groups.pushObject(group);
+  saveGroup(group, callback) {
+    $.ajax({
+      type: 'POST',
+      url: '/groups',
+      data: { group: JSON.stringify(group) },
+      dataType: 'json',
+      success: (result) => {
+        callback(result["group"]);
+      }
+    });
   },
 
   deleteGroup(group) {
+    // $.ajax({
+    //   type: 'DELETE',
+    //   url: '/groups/' + group.id,
+    //   dataType: 'json',
+    //   success: (result) => {
+    //     callback(result["group"]);
+    //   }
+    // });
     groups.popObject(group);
   },
 
@@ -89,25 +109,40 @@ export default Ember.Service.extend({
     // TODO ajax
   },
 
-  getTests(group_id) {
-    return tests.filterBy('group_id', group_id);
+  getTests(group_id, callback) {
+    $.ajax({
+      type: 'GET',
+      url: '/tests',
+      data: { group_id: group_id },
+      dataType: 'json',
+      success: (tests) => {
+        callback(tests);
+      }
+    });
   },
 
-  deleteTest(test) {
-    // TODO ajax
-    tests.popObject(test);
+  deleteTest(test, callback) {
+    $.ajax({
+      type: 'DELETE',
+      url: '/tests/' + test.id,
+      dataType: 'json',
+      success: (result) => {
+        callback(result["test"]);
+      }
+    });
   },
 
-  newTest() {
+  newTest(groupId) {
     return Test.create({
       name: '',
       description: '',
       duration_in_secs: '',
       start_date: '2017-08-20T13:45:00',
       end_date: '2017-08-21T13:45:00',
-      questions: [Question.create({
+      group_id: groupId,
+      questions_attributes: [Question.create({
         text: '',
-        question_options: [
+        question_options_attributes: [
           QuestionOption.create({ answer_text: '', is_correct: false })
         ]
       })]
@@ -117,11 +152,23 @@ export default Ember.Service.extend({
   getEmptyQuestion() {
     return Question.create({
       text: '',
-      question_options: [ QuestionOption.create({ answer_text: '', is_correct: false }) ]
+      question_options_attributes: [ QuestionOption.create({ answer_text: '', is_correct: false }) ]
     })
   },
 
   getEmptyOption() {
     return QuestionOption.create({ answer_text: '', is_correct: false })
+  },
+
+  createTest(test, callback) {
+    $.ajax({
+      type: 'POST',
+      url: '/tests',
+      data: { test: JSON.stringify(test) },
+      dataType: 'json',
+      success: (result) => {
+        callback(result["test"]);
+      }
+    });
   }
 });

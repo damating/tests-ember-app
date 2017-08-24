@@ -6,7 +6,7 @@
     <div class="form-group col-md-10">
       {{input type="text" class="form-control" placeholder="Treść pytania" value=question.text}}
 
-      {{#each question.question_options as |option|}}
+      {{#each question.question_options_attributes as |option|}}
         <div class="form-check col-md-offset-2">
           {{input type="checkbox" class="form-check-input" checked=option.is_correct}}
           {{input type="text" class="form-control" placeholder="Odpowiedź" value=option.answer_text}}

@@ -3,9 +3,14 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   actions: {
     createGroup(group) {
-      this.get('store').saveGroup(jQuery.extend(true, {}, group));
-      group.set('name', '');
-      group.set('description', '');
+      // this.get('store').saveGroup(jQuery.extend(true, {}, group));
+
+      // TO DO create controller to get access to this.get('groups')
+      this.get('store').saveGroup(group, (x) => { this.get('groups').unshiftObject(x) });
+      this.get('newGroup').set('name', '');
+      // group.set('name', '');
+      // group.set('description', '');
+      // this.get('groups').unshiftObject(group);
     }
 
     // editGroup(group) {
@@ -20,23 +25,15 @@ export default Ember.Route.extend({
   },
 
   model() {
-    const store = this.get('store');
-    return store.getGroups();
+    return this.get('store').getGroups();
   },
 
   setupController(controller, model) {
     const store = this.get('store');
 
-    controller.set('groups', model);
+    controller.set('groups', model["groups"]);
     controller.set('newGroup', store.newGroup());
-    // this.store.findAll('tag').then(function(tags) {
-    //   controller.set('tags', tags);
-    // });
-    // this.store.findAll('category').then(function(categories) {
-    //   controller.set('categories', categories);
-    // });
   },
-
 
   store: Ember.inject.service('store')
 });

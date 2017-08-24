@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        {{#each newTest.questions as |question|}}
+        {{#each newTest.questions_attributes as |question|}}
           {{question-view test=newTest question=question}}
         {{/each}}
         <button {{action "addQuestion"}} class="btn btn-success">Dodaj pytanie</button>

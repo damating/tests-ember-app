@@ -9,14 +9,18 @@ export default Ember.Controller.extend({
     },
 
     deleteTest(test) {
-      this.get('store').deleteTest(test);
-      this.get('tests').popObject(test);
+      this.get('store').deleteTest(test, (t) => { this.get('tests').popObject(t) });
     },
 
     addQuestion() {
       const emptyQuestion = this.get('store').getEmptyQuestion();
-      this.get('newTest').questions.pushObject(emptyQuestion);
-    }
+      this.get('newTest').questions_attributes.pushObject(emptyQuestion);
+    },
+
+    createTest(test) {
+      this.get('store').createTest(test, (t) => { this.get('tests').unshiftObject(t) });
+      this.set('formIsActive', false);
+    },
   },
 
   store: Ember.inject.service()
