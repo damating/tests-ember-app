@@ -118,5 +118,28 @@ export default Ember.Service.extend({
         callback(result["test"]);
       }
     });
+  },
+
+  getTest(testId, callback) {
+    $.ajax({
+      type: 'GET',
+      url: '/tests/' + testId,
+      dataType: 'json',
+      success: (result) => {
+        callback(result);
+      }
+    });
+  },
+
+  calculateTest(test, callback) {
+    $.ajax({
+      type: 'POST',
+      url: '/tests/' + test.id + '/calculate',
+      dataType: 'JSON',
+      data: { test: JSON.stringify(test) },
+      success: (result) => {
+        callback(result);
+      }
+    });
   }
 });

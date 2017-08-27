@@ -1,0 +1,6 @@
+{
+  "name": "frontend",
+  "dependencies": {
+    "slick-carousel": "^1.7.1"
+  }
+}

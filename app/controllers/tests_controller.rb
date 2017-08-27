@@ -11,11 +11,7 @@ class TestsController < ApplicationController
     render json: test
   end
 
-  def destroy
-    render json: Test.destroy(params[:id])
-  end
-
-  def to_solve
+  def show
     test = Test.find(params[:id]).as_json(include: {
                                             questions:
                                             {
@@ -23,7 +19,12 @@ class TestsController < ApplicationController
                                               only: [:id, :text]
                                             }
                                           }, only: [:id, :name, :duration_in_secs] )
+
     render json: test
+  end
+
+  def destroy
+    render json: Test.destroy(params[:id])
   end
 
   def calculate
@@ -36,11 +37,11 @@ class TestsController < ApplicationController
     count = 0
     params[:test][:questions].each do |question|
       correct_options = check_hash[question[:id]]
-      answers = question[:question_options].map { |o| [o[:id], o[:is_correct]]}.to_h
+      answers = question[:question_options].map { |o| [o[:id], o[:is_correct] || o[:is_correct] != nil] }.to_h
       count += 1 if correct_options == answers
     end
 
-    render json: {points: count}
+    render json: { points: count }
   end
 
   private
