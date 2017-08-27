@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    group = Group.new
+    group = Group.new(group_params)
     group.save
 
     render json: group
@@ -15,7 +15,7 @@ class GroupsController < ApplicationController
   end
 
   def update
-    group = Group.find(params["id"])
+    group = Group.find(params[:id])
     group.update_attributes(group_params)
     render json: group
   end
@@ -24,6 +24,7 @@ class GroupsController < ApplicationController
 
   def group_params
     params[:group] = JSON.parse(params[:group])
+
     params.require(:group).permit(:id, :name, :description)
   end
 end

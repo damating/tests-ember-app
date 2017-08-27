@@ -43,7 +43,7 @@
     <div>
       {{test.name}}
       <button {{action "deleteTest" test}} class="btn btn-danger">Usuń</button>
-      {{#link-to "groups.test" test.id tagName="div" class="btn btn-success"}}Rozwiąż{{/link-to}}
+      {{#link-to "groups.test" groupId test.id tagName="div" class="btn btn-success"}}Rozwiąż{{/link-to}}
       {{ log test }}
     </div>
   {{/each}}

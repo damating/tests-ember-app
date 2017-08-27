@@ -7,12 +7,11 @@ export default Ember.Component.extend({
     },
 
     saveEditedGroup(group) {
-      this.get('store').updateGroup(group);
-      this.set('isEdited', false);
+      this.get('store').updateGroup(group, () => { this.set('isEdited', false); });
     },
 
     deleteGroup(group) {
-      this.get('store').deleteGroup(group);
+      this.get('store').deleteGroup(group, (g) => { this.get('groups').removeObject(g); });
     },
   },
 

@@ -7,7 +7,7 @@
 {{else}}
   {{group.name}}<br>
   {{group.description}}<br>
-  {{#link-to "group" group tagName="div" class="btn btn-success"}}Odwiedź{{/link-to}}
+  {{#link-to "groups" group.id tagName="div" class="btn btn-success"}}Odwiedź{{/link-to}}
   <button {{action "deleteGroup" group}} class="btn btn-danger">Usuń</button>
   <button {{action "editGroup"}} class="btn btn-warning">Edytuj</button>
 {{/if}}
