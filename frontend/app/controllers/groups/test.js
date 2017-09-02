@@ -6,8 +6,12 @@ export default Ember.Controller.extend({
 
   actions: {
     calculateTest() {
-      this.get('store').calculateTest(this.get('test'), (result) => { this.getResult(result); });
+      this.calculateTestPoints();
     }
+  },
+
+  calculateTestPoints() {
+    this.get('store').calculateTest(this.get('test'), (result) => { this.getResult(result); });
   },
 
   getResult(result) {

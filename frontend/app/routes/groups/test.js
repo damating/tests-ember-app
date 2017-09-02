@@ -8,7 +8,7 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     const store = this.get('store');
 
-    store.getTest(model, (result) => { controller.set('test', result); $(document).ready(function() { $('.questionSlider').slick(); }); });
+    store.getTest(model, (result) => { controller.set('test', result); });
   },
 
   store: Ember.inject.service()

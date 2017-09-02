@@ -1,26 +1,97 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Frontend</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{content-for "head"}}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Frontend</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> {{content-for "head"}}
+  <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+  <link rel="stylesheet" href="{{rootURL}}assets/frontend.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> {{content-for "head-footer"}}
+</head>
 
-    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
-    <link rel="stylesheet" href="{{rootURL}}assets/frontend.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    {{content-for "head-footer"}}
-  </head>
-  <body>
-    {{content-for "body"}}
+<body>
+  {{content-for "body"}}
+  <script src="{{rootURL}}assets/vendor.js"></script>
+  <script src="{{rootURL}}assets/frontend.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script>
+  (function($) {
+    $.fn.svgTimer = function(options, callback) {
+      var opts = $.extend({}, $.fn.svgTimer.defaults, options);
 
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script src="{{rootURL}}assets/frontend.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      var template = "<div class='svg-hexagonal-counter'>" +
+        "<h2>0</h2>" +
+        "<svg class='counter' x='0px' y='0px' viewBox='0 0 776 628'>" +
+        "<path class='track' d='M723 314L543 625.77 183 625.77 3 314 183 2.23 543 2.23 723 314z'></path>" +
+        "<path class='fill' d='M723 314L543 625.77 183 625.77 3 314 183 2.23 543 2.23 723 314z'></path>" +
+        "</svg>" +
+        "</div>";
 
-    {{content-for "body-footer"}}
-  </body>
+      return this.each(function() {
+        // Build dom for svg countdown
+        var parentEl = $(this);
+        parentEl.append(template);
+
+        //define dom elements
+        var track = parentEl.find('.track');
+        var fill = parentEl.find('.fill');
+        var counterText = parentEl.find('h2');
+
+        //set time and offset
+        var time = opts.time; /* how long the timer runs for */
+        var initialOffset = 2160;
+        var i = 1;
+
+        //draw initial hexagon
+        track.css('stroke', opts.track);
+        fill.css({
+          'stroke': opts.fill,
+          'stroke-dashoffset': initialOffset - (i * (initialOffset / time)) + 'px',
+          'transition': 'stroke-dashoffset 1s ' + opts.transition
+        });
+
+        //run timer
+        var interval = setInterval(function() {
+          track.css('stroke', opts.track);
+          fill.css({
+            'stroke': opts.fill,
+            'stroke-dashoffset': initialOffset - (i * (initialOffset / time)) + 'px',
+            'transition': 'stroke-dashoffset 1s ' + opts.transition
+          });
+          if (opts.direction === 'forward') {
+            counterText.text(i);
+          } else if (opts.direction === 'backward') {
+            var count = opts.time - i + 1;
+            var date = new Date(null);
+            date.setSeconds(count); // specify value for SECONDS here
+            var result = date.toISOString().substr(14, 5);
+            counterText.text(result);
+          }
+
+          if (i == time) {
+            clearInterval(interval);
+            callback();
+          }
+          i++;
+        }, opts.interval);
+      });
+    };
+
+    $.fn.svgTimer.defaults = {
+      time: 60,
+      track: 'rgb(56, 71, 83)',
+      fill: 'rgb(104, 214, 198)',
+      transition: 'linear',
+      direction: 'forward',
+      interval: 1000
+    }
+  }(jQuery));
+
+  </script>
+  {{content-for "body-footer"}}
+</body>
+
 </html>
