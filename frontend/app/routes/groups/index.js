@@ -10,6 +10,7 @@ export default Ember.Route.extend({
 
     controller.set('groupId', model);
     store.getTests(model, (result) => { controller.set('tests', result["tests"]) });
+    store.getGroupById(model, (result) => { controller.set('group', result["group"]) });
     controller.set('newTest', store.newTest(model));
   },
 

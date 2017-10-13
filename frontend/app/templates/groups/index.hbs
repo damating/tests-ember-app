@@ -39,16 +39,16 @@
     </div>
 </div>
 {{else}}
-<div id="entry-header" class="row new-question">
-    <div style="background-image: url(/assets/bg-3.jpg);" class="pt-image"></div>
+  <div id="entry-header" class="row new-question">
+    <div style="background-image: url(/assets/{{group.image_url}});" class="pt-image"></div>
     <div class="container">
-        <div class="container-sm pull-left">
-            <h3 class="entry-title">Phasellus sed dolo</h3>
-            <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam dictum sodales ligula eget lobortis. Class aptent taciti sociosqu ad litora torquent per </p>
-            <button {{action "showForm" test}} class="btn btn-secondary btn-lg mt-2">Dodaj test</button>
-        </div>
+      <div class="container-sm pull-left">
+          <h3 class="entry-title">{{group.name}}</h3>
+          <p>{{group.description}}</p>
+          <button {{action "showForm" test}} class="btn btn-secondary btn-lg mt-2">Dodaj test</button>
+      </div>
     </div>
-</div>
+  </div>
 {{/if}}
 
 <div id="main">

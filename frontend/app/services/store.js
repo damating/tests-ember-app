@@ -6,8 +6,15 @@ import Question from '../models/question';
 import QuestionOption from '../models/question-option';
 
 export default Ember.Service.extend({
-  getGroupById(id) {
-    return groups.findBy('id', id);
+  getGroupById(id, callback) {
+    return $.ajax({
+      type: 'GET',
+      url: '/groups/' + id,
+      dataType: 'json',
+      success: (group) => {
+        callback(group);
+      }
+    });
   },
 
   getGroups() {
