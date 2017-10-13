@@ -3,11 +3,13 @@
 {{#if isEdited}}
   {{input type="text" class="form-control" value=group.name}}<br>
   {{textarea class="form-control" rows="3" value=group.description}}<br>
-  <button {{action "saveEditedGroup" group}}>Zapisz</button>
+  <button {{action "saveEditedGroup" group}} class="btn btn-primary">Zapisz</button>
 {{else}}
-  {{group.name}}<br>
-  {{group.description}}<br>
-  {{#link-to "groups" group.id tagName="div" class="btn btn-success"}}Odwiedź{{/link-to}}
+  <h4 class="title">{{group.name}}</h4>
+  <p>{{group.description}}</p>
+  <div class="mt-3">
+  {{#link-to "groups" group.id tagName="div" class="btn btn-primary"}}Odwiedź{{/link-to}}
   <button {{action "deleteGroup" group}} class="btn btn-danger">Usuń</button>
   <button {{action "editGroup"}} class="btn btn-warning">Edytuj</button>
+  </div>
 {{/if}}

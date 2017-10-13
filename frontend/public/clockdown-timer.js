@@ -61,7 +61,7 @@
     };
 
     $.fn.svgTimer.defaults = {
-      time: 60,
+      time: 3600,
       track: 'rgb(56, 71, 83)',
       fill: 'rgb(104, 214, 198)',
       transition: 'linear',

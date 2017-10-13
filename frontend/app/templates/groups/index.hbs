@@ -1,50 +1,67 @@
-<div class="container">
-  {{#if formIsActive}}
-    <div class="row">
-      <form {{action "createTest" newTest on="submit"}}>
-        <div class="row form-group">
-          <div class="form-group col-md-6">
-            <label for="name">Nazwa</label>
-            {{input type="text" id="testName" class="form-control" placeholder="Nazwa" value=newTest.name}}
-          </div>
-          <div class="form-group col-md-6">
-            <label for="duration_in_secs">Czar trwania w minutach</label>
-            {{input type="text" id="testDuration" class="form-control" placeholder="Czas trwania" value=newTest.duration_in_secs}}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="description">Opis</label>
-          {{textarea class="form-control" id="testDescription" rows="3" value=newTest.description}}
-        </div>
-        <div class="row form-group">
-          <div class="form-group col-md-6">
-            <label for="start_date">Data i czas rozpoczęcia</label>
-            {{input type="datetime-local" id="testStartDate" class="form-control" value=newTest.start_date}}
-          </div>
-          <div class="form-group col-md-6">
-            <label for="end_date">Data i czas zakończenia</label>
-            {{input type="datetime-local" id="testEndDate" class="form-control" value=newTest.end_date}}
-          </div>
-        </div>
+{{#if formIsActive}}
+<div id="entry-header" class="row new-question">
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="row">
+            <h3 class="entry-title">Dodaj nowe pytanie</h3>
+            <form {{action "createTest" newTest on="submit"}}>
+            <div class="row form-group">
+                <div class="form-group col-md-6">
+                    {{input type="text" id="testName" class="form-control" placeholder="Nazwa" value=newTest.name}}
+                </div>
+                <div class="form-group col-md-6">
+                    {{input type="text" id="testDuration" class="form-control" placeholder="Czar trwania w minutach" value=newTest.duration_in_secs}}
+                </div>
+            </div>
+            <div class="form-group">
+                {{textarea class="form-control" id="testDescription" placeholder="Opis" rows="3" value=newTest.description}}
+            </div>
+            <div class="row form-group">
+                <div class="form-group col-md-6">
+                    <label for="start_date">Data i czas rozpoczęcia</label>
+                    {{input type="datetime-local" id="testStartDate" class="form-control" value=newTest.start_date}}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="end_date">Data i czas zakończenia</label>
+                    {{input type="datetime-local" id="testEndDate" class="form-control" value=newTest.end_date}}
+                </div>
+            </div>
 
-        {{#each newTest.questions_attributes as |question|}}
-          {{question-view test=newTest question=question}}
+            {{#each newTest.questions_attributes as |question|}}
+            {{question-view test=newTest question=question}}
+            {{/each}}
+            <div class="actions-primary">
+              <button {{action "addQuestion"}} class="btn btn-secondary btn-lg">Dodaj nowe pytanie</button>
+              <button type="submit" class="btn  btn-secondary btn-lg pull-right">Utwórz test</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{else}}
+<div id="entry-header" class="row new-question">
+    <div style="background-image: url(/assets/bg-3.jpg);" class="pt-image"></div>
+    <div class="container">
+        <div class="container-sm pull-left">
+            <h3 class="entry-title">Phasellus sed dolo</h3>
+            <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam dictum sodales ligula eget lobortis. Class aptent taciti sociosqu ad litora torquent per </p>
+            <button {{action "showForm" test}} class="btn btn-secondary btn-lg mt-2">Dodaj test</button>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<div id="main">
+    <div class="list-items container">
+        {{#each tests as |test|}}
+        <div class="item">
+            <div class="name">{{test.name}}</div>
+            <div class="actions">
+                {{#link-to "groups.test" groupId test.id tagName="div" class="btn btn-primary"}}Rozwiąż{{/link-to}}
+                <button {{action "deleteTest" test}} class="btn btn-danger">Usuń</button>
+                {{ log test }}
+            </div>
+        </div>
         {{/each}}
-        <button {{action "addQuestion"}} class="btn btn-success">Dodaj pytanie</button>
-
-        <button type="submit" class="btn btn-success pull-right">Utwórz test</button>
-      </form>
     </div>
-  {{else}}
-    <button {{action "showForm" test}} class="btn btn-success pull-right">Dodaj test</button>
-  {{/if}}
-
-  {{#each tests as |test|}}
-    <div>
-      {{test.name}}
-      <button {{action "deleteTest" test}} class="btn btn-danger">Usuń</button>
-      {{#link-to "groups.test" groupId test.id tagName="div" class="btn btn-success"}}Rozwiąż{{/link-to}}
-      {{ log test }}
-    </div>
-  {{/each}}
 </div>
