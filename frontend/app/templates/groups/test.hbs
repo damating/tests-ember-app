@@ -1,22 +1,39 @@
 {{outlet}}
-
 {{#if isSolving}}
-  {{test-view questions=test.questions}}
 
-  <div class="container">
-    <button {{action "calculateTest"}} class="btn btn-default pull-right">Zakończ test</button>
+<div id="entry-header" class="row new-question">
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="row">
+            <div id="timer" class="col-sm-3">
+                {{test-slider test=test}}
+            </div>
+            <div class="col-sm-9">
+                <h3 class="entry-title">  {{test.name}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
 
-  <div class="row md">
+{{test-view questions=test.questions}}
 
-  {{test-slider test=test}}
-
- </div>
- </div>
+<div class="submit container">
+    <button {{action "calculateTest"}} class="btn btn-primary btn-lg">Zakończ test</button>
+</div>
 
 {{else}}
-  <div class="container">
-    Twój wynik to: {{points}} / {{test.questions.length}}
-  </div>
+
+<div id="entry-header" class="score row">
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="container-sm">
+          <h3 class="entry-title">
+          Dziękujemy! <br>
+          Twój wynik to: {{points}} / {{test.questions.length}}</h3>
+        </div>
+    </div>
+</div>
+
 {{/if}}
 
 <script src="/clockdown-timer.js"></script>

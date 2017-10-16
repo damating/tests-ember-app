@@ -42,13 +42,9 @@ body.ember-application {
     height: 100%;
     width: 100%;
     z-index: -1;
-/*    background: #cb5a36 url(bg-2.jpg) no-repeat 0% 50%;*/
-
     background: #0065B3;
     background: -webkit-radial-gradient(bottom, #0096D6 12%, #00328F);
     background: radial-gradient(at bottom, #0096D6 12%, #00328F);
-
-/*    background: radial-gradient(at bottom, #dabc91 12%, #864816);*/
 }
 
 .mt-3 {
@@ -61,20 +57,6 @@ body.ember-application {
 .title {
     font-weight: bold;
 }
-
-/*
-.background-image:before {
-    position: absolute;
-    content: "";
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    opacity: .88;
-    background-image: linear-gradient(to right, #ef8263 -50%, #f1bc2e 100%);
-    background-repeat: repeat-x;
-}
-*/
 
 
 /*Header*/
@@ -104,6 +86,15 @@ body.ember-application {
     background-color: transparent;
     background-image: none;
     border-color: #ff97a1;
+}
+/* Score */
+#entry-header.score {
+    height: 100vh;
+    margin: 0;
+}
+#entry-header.score .entry-title {
+    line-height: 1.5;
+    text-align: center;
 }
 
 
@@ -177,6 +168,17 @@ form .question-item {
     padding-left: 0;
     padding-right: 0;
 }
+form .question-item .form-check {
+    margin-top: 15px;
+}
+form .question-item .form-check .form-control {
+    padding-left: 30px !important;
+}
+form .question-item .form-check input[type=checkbox] {
+    margin-top: 10px;
+    position: absolute
+}
+
 form .actions-primary {
     padding-top: 35px;
     border-top: 3px solid #fff;
@@ -236,68 +238,7 @@ form .ember-view + .ember-view .question{
 }
 
 
-.questionSlider {
-    margin: 0 auto;
-    padding: 40px;
-    width: 80%;
-    height: 200px;
-    color: black;
-    background: white;
-}
-
-.slick-prev:before,
-.slick-next:before
-{
-    font-size: 50px !important;
-    color: black !important;
-}
-
-.slick-slide {
-    padding-left: 150px;
-    padding-right: 150px;
-}
-
-
-.svg-hexagonal-counter {
-    position: relative;
-    float: left;
-}
-
-.svg-hexagonal-counter h2 {
-    text-align:center;
-    position: absolute;
-    line-height: 200px;
-    width: 100%;
-}
-
-/*SVG*/
-.svg-hexagonal-counter .counter{
-    width: 200px;
-    height: 240px;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor: default;
-}
-.svg-hexagonal-counter .counter .track,
-.svg-hexagonal-counter .counter .fill {
-    fill: rgba(0, 0, 0, 0);
-    stroke-width: 30;
-    transform: translate(290px, 800px)rotate(-120deg);
-}
-
-.svg-hexagonal-counter .counter .fill {
-    stroke: rgb(255, 255, 255);
-    stroke-linecap: round;
-    stroke-dasharray: 2160;
-    stroke-dashoffset: 2160;
-}
-
 /* Buttons */
-
 .btn {
     font-size: 13px;
     font-weight: 500;
@@ -374,4 +315,81 @@ form .ember-view + .ember-view .question{
     color: #fff;
     background-color: rgba(0,0,0,.2);
     border-color: #fff;
+}
+
+/* Timer */
+#timer {
+    margin-right: -45px;
+}
+
+.svg-hexagonal-counter {
+    position: relative;
+    float: left;
+}
+
+.svg-hexagonal-counter h2 {
+    text-align:center;
+    position: absolute;
+    line-height: 200px;
+    width: 100%;
+    color: #8bc2da;
+}
+
+.svg-hexagonal-counter .counter{
+    width: 200px;
+    height: 240px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+.svg-hexagonal-counter .counter .track,
+.svg-hexagonal-counter .counter .fill {
+    fill: rgba(0, 0, 0, 0);
+    stroke-width: 30;
+    transform: translate(290px, 800px)rotate(-120deg);
+}
+.svg-hexagonal-counter .counter .fill {
+    stroke: rgb(255, 255, 255);
+    stroke-linecap: round;
+    stroke-dasharray: 2160;
+    stroke-dashoffset: 2160;
+}
+.svg-hexagonal-counter .counter .track {
+    stroke: #8bc2da !important;
+}
+
+.svg-hexagonal-counter .counter .fill {
+    stroke: #ff9800 !important;
+}
+
+/* Slider */
+.questionSlider {
+    margin: 0 auto;
+    padding: 40px;
+    width: 80%;
+    color: black;
+    background: white;
+}
+
+.slick-prev:before,
+.slick-next:before
+{
+    font-size: 50px !important;
+    color: #a2a2a2 !important;
+}
+
+.slick-slide {
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.slick-list .form-check + .form-check {
+    margin-top: 7px;
+}
+.submit {
+    margin-bottom: 100px;
 }
